@@ -27,6 +27,17 @@ export class UserService {
         );
   }
 
+  searchUsers(term: string): Observable<User[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<User[]>(`${this.url}/?name=${term}`).pipe(
+        tap(_ => this.log(`found users matching "${term}"`)),
+        catchError(this.handleError<User[]>('searchUsers', []))
+    );
+  }
+
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.url, user, httpOptions).pipe(
         tap((newUser: User) => this.log(`added user w/ id=${newUser.id}`)),
@@ -77,17 +88,5 @@ export class UserService {
   private log(message: string) {
     this.messageService.add(`UserService: ${message}`);
   }
-
-  // createUser(user: User) {
-  //   return this.http.post(this.url, user);
-  // }
-  // updateUser(id: number, user: User) {
-  //   const urlParams = new HttpParams().set('id', id.toString());
-  //   return this.http.put(this.url, user, { params: urlParams});
-  // }
-  // deleteUser(id: number){
-  //   const urlParams = new HttpParams().set('id', id.toString());
-  //   return this.http.delete(this.url, { params: urlParams});
-  // }
 
 }

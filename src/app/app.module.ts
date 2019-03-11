@@ -8,14 +8,18 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { AppRoutingModule } from './app-routing.module';
+import { UserSearchComponent } from './user-search/user-search.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserSearchComponent,
+    UsersComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule,
+    BrowserModule, AppRoutingModule, FormsModule, HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
         InMemoryDataService, { dataEncapsulation: false }
     )
