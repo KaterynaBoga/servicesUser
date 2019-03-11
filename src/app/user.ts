@@ -1,4 +1,4 @@
-export class User
-{
-    constructor(public id: number, public name: string, public age: number) { }
+export class User {
+    id: number;
+    name: string;
 }

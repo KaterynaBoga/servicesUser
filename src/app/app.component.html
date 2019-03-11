@@ -1,53 +1,8 @@
-<div class="panel">
-  <div class="form-inline">
-    <div class="form-group">
-      <div class="col-md-8">
-        <input class="form-control" [(ngModel)]="name" placeholder = "Модель" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-6">
-        <input type="number" class="form-control" [(ngModel)]="age" placeholder="Возраст" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-offset-2 col-md-8">
-        <button class="btn btn-default" (click)="addItem(name, age)">Добавить</button>
-      </div>
-    </div>
-  </div>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Имя</th>
-      <th>Возраст</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of items">
-      <ng-template [ngTemplateOutlet]="loadTemplate(item)"
-                   [ngTemplateOutletContext]="{ $implicit: item}">
-      </ng-template>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<h1>{{title}}</h1>
+<nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/heroes">Heroes</a>
+</nav>
+<router-outlet></router-outlet>
+<app-messages></app-messages>
 
-<ng-template #readOnlyTemplate let-user>
-  <td>{{user.name}}</td>
-  <td>{{user.age}}</td>
-  <td><button class="btn btn-info" (click)="editUser(user)">Редактировать</button></td>
-</ng-template>
-
-<ng-template #editTemplate>
-  <td>
-    <input type="text" [(ngModel)]="editedUser.name" class="form-control" />
-  </td>
-  <td>
-    <input type="text" [(ngModel)]="editedUser.age" class="form-control" />
-  </td>
-  <td>
-    <button class="btn btn-success" (click)="saveUser()">Сохранить</button>
-  </td>
-  <td>
-</ng-template>

@@ -26,5 +26,7 @@ export class InfoService {
     this.editService.updateUser(this.data, id, name, age);
   }
 
+
+
   constructor(private userService: UserService, private editService: EditService) { }
 }
