@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  private url = 'https://jsonplaceholder.typicode.com/users';
+  private url = 'api/users';
   constructor(
       private http: HttpClient,
       private messageService: MessageService) { }
@@ -26,6 +26,20 @@ export class UserService {
             catchError(this.handleError('getUsers', []))
         );
   }
+
+  getUserNo404<Data>(id: number): Observable<User> {
+    const url = `${this.url}/?id=${id}`;
+    return this.http.get<User[]>(url)
+      .pipe(
+          map(users => users[0]),
+          tap(h => {
+              const outcome = h ? `fetched` : `did not find`;
+              this.log(`${outcome} user id=${id}`);
+          }),
+          catchError(this.handleError<User>(`getUser id=${id}`))
+      );
+  }
+
 
   searchUsers(term: string): Observable<User[]> {
     if (!term.trim()) {
